@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du Film/Série</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #141414; /* Couleur sombre inspirée par Netflix */
+            margin: 0;
+            padding: 20px;
+            color: #ffffff; /* Couleur du texte */
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #e5091400; /* Rouge de Netflix */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+        }
+        .poster {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #ffffff; /* Couleur du texte du titre */
+        }
+        .description {
+            font-size: 16px;
+            margin: 10px 0;
+            color: #e0e0e0; /* Couleur du texte de la description */
+        }
+        .message-container {
+            margin-top: 20px;
+            max-height: 500px; /* Limite de hauteur pour le défilement */
+            overflow-y: auto; /* Permet le défilement vertical */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Bordure légère blanche */
+            border-radius: 5px;
+            background: #222; /* Couleur sombre pour la zone des messages */
+        }
+        .message-card {
+            background-color: #e5091400; /* Rouge de Netflix pour les messages */
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            opacity: 0; /* Commence invisible pour l'animation */
+            animation: swipe-in 0.5s forwards; /* Animation de glissement */
+        }
+        @keyframes swipe-in {
+            from {
+                transform: translateY(20px); /* Glisse de 20px vers le bas */
+                opacity: 0; /* Invisible au début */
+            }
+            to {
+                transform: translateY(0); /* Arrête à la position normale */
+                opacity: 1; /* Deviens visible */
+            }
+        }
+        .avatar {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            border: 2px solid #e5091400; /* Bordure rouge pour l'avatar */
+        }
+        .message-content {
+            display: flex;
+            flex-direction: column;
+        }
+        .webhookName {
+            font-weight: bold;
+            color: #ffffff; /* Couleur du nom de l'utilisateur */
+        }
+        .message-time {
+            font-size: 12px;
+            color: #b9bbbe; /* Couleur grise pour le temps */
+        }
+        .message-body {
+            margin-top: 5px;
+        }
+        .message-body img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="message-container" id="message-container">
+        <!-- Messages will be injected here -->
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Récupérer le paramètre jsonFile de l'URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const jsonFile = urlParams.get('jsonFile'); // Récupère le paramètre jsonFile
+
+    // Charger les films depuis films.json
+    fetch('films.json')
+        .then(response => response.json())
+        .then(data => {
+            // Trouver le film correspondant au jsonFile
+            const film = data.find(item => item.jsonFile === jsonFile);
+
+            // Charger les messages associés à ce film
+            if (film) {
+                return fetch(film.jsonFile);
+            } else {
+                console.error('Film non trouvé');
+                throw new Error('Film non trouvé');
+            }
+        })
+        .then(response => {
+            if (response && response.ok) {
+                return response.json(); // Assurez-vous que cela renvoie un tableau
+            }
+            throw new Error('Failed to load messages');
+        })
+        .then(messages => {
+            if (!Array.isArray(messages)) {
+                throw new Error('Invalid data structure: Expected an array');
+            }
+
+            const messageContainer = document.getElementById('message-container');
+            let totalDelay = 0; // Délai cumulé pour afficher les messages
+
+            messages.forEach(msg => {
+                // Utilisation de setTimeout pour respecter le délai de chaque message
+                setTimeout(() => {
+                    const messageCard = document.createElement('div');
+                    messageCard.className = 'message-card';
+
+                    const avatar = document.createElement('img');
+                    avatar.className = 'avatar';
+                    avatar.src = msg.webhookAvatar;
+
+                    const messageContent = document.createElement('div');
+                    messageContent.className = 'message-content';
+
+                    const webhookName = document.createElement('div');
+                    webhookName.className = 'webhookName';
+                    webhookName.innerText = msg.webhookName;
+
+                    const messageTime = document.createElement('div');
+                    messageTime.className = 'message-time';
+                    messageTime.innerText = `Temps : ${msg.time} secondes`;
+
+                    const messageBody = document.createElement('div');
+                    messageBody.className = 'message-body';
+
+                    if (msg.message.endsWith('.gif') || msg.message.endsWith('.png') || msg.message.endsWith('.jpg')) {
+                        const img = document.createElement('img');
+                        img.src = msg.message;
+                        messageBody.appendChild(img);
+                    } else {
+                        messageBody.innerText = msg.message;
+                    }
+
+                    messageContent.appendChild(webhookName);
+                    messageContent.appendChild(messageTime);
+                    messageContent.appendChild(messageBody);
+                    messageCard.appendChild(avatar);
+                    messageCard.appendChild(messageContent);
+                    messageContainer.appendChild(messageCard);
+
+                    // Faire défiler vers le bas pour que le dernier message soit visible
+                    messageContainer.scrollTop = messageContainer.scrollHeight;
+                }, totalDelay * 1000); // Multiplier par 1000 pour convertir les secondes en millisecondes
+
+                totalDelay += msg.time; // Ajouter le délai du message actuel au total
+            });
+        })
+        .catch(error => {
+            console.error('Erreur lors du chargement des données :', error);
+        });
+});
+
+</script>
+
+</body>
+</html>

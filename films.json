@@ -1,0 +1,120 @@
+[
+    {
+        "id": 1,
+        "title": "Maloye: A la Recherche de L'Ether Noir",
+        "poster": "Néfary La Chute/Maloye_affiche.png",
+        "description": "Un thriller palpitant dans une ville gangrenée par la corruption.",
+        "type": "film",
+        "jsonFile": "Néfary La Chute/film1.json"
+    },
+    {
+        "id": 2,
+        "title": "Titan",
+        "poster": "https://media.discordapp.net/attachments/1270916420879777833/1270927793462575165/Titan.png?ex=671ba77e&is=671a55fe&hm=9f8360802c3080f2aa613ead7ba8c3fa0db23529a331da6b4d3a3cd1ce7b4725&=&format=webp&quality=lossless&width=247&height=350",
+        "description": "Le retour d'un agent de police avec une vengeance implacable.",
+        "type": "film",
+        "jsonFile": "film2.json"
+    },
+    {
+        "id": 3,
+        "title": "Killer Ghost",
+        "poster": "https://media.discordapp.net/attachments/1270916420879777833/1270927856821866516/KillerGhost_Saison_1_Affiche.png?ex=671ba78d&is=671a560d&hm=e9532be38ab80749c792530078cb28627ba116ab4ed8708e7edf8772b4541d89&=&format=webp&quality=lossless&width=395&height=559",
+        "description": "Une série effrayante sur un esprit qui hante ses victimes.",
+        "type": "series",
+        "episodes": [
+            {
+                "episode": 1,
+                "title": "Le Début de l'Horreur",
+                "jsonFile": "Killer Ghost/Episode 1.json"
+            },
+            {
+                "episode": 2,
+                "title": "La Peur s'intensifie",
+                "jsonFile": "Killer Ghost/Episode 2.json"
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "title": "Mystery Hills",
+        "poster": "https://media.discordapp.net/attachments/1270916420879777833/1276321771741642762/image.png?ex=671c2947&is=671ad7c7&hm=b54c7d0d4f8692bde91110066422043cf5bd702790d3029dceb32eb00d50e36b&=&format=webp&quality=lossless&width=397&height=559",
+        "description": "Une série mystérieuse se déroulant dans une petite ville.",
+        "type": "series",
+        "episodes": [
+            {
+                "episode": 1,
+                "title": "Le Secret de la Forêt",
+                "jsonFile": "Mystery Hills/Episode 1.json"
+            },
+            {
+                "episode": 2,
+                "title": "Les Disparus",
+                "jsonFile": "Mystery Hills/Episode 2.json"
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "title": "Batman VS Punisher",
+        "poster": "https://media.discordapp.net/attachments/1270073035579330604/1278066156682481735/image.png?ex=671bea5d&is=671a98dd&hm=1da2c3be7691bded3e6c6b86aacfccdfd4d41ef664a00a9f2ff0307b97ffe8c7&=&format=webp&quality=lossless&width=394&height=559",
+        "description": "Un thriller palpitant dans une ville gangrenée par la corruption.",
+        "type": "film",
+        "jsonFile": "Néfary La Chute/film1.json"
+    },
+    {
+        "id": 6,
+        "title": "Joker: L'homme qui rit",
+        "poster": "https://media.discordapp.net/attachments/1270073035579330604/1298009736654094417/image.png?ex=671bf5c5&is=671aa445&hm=cf9e2f4618583861f242ad45bf365421ccf23408dd04bc52d29776107ef567fb&=&format=webp&quality=lossless&width=246&height=350",
+        "description": "Le retour d'un agent de police avec une vengeance implacable.",
+        "type": "film",
+        "jsonFile": "film2.json"
+    },
+    {
+        "id": 7,
+        "title": "Black Iron",
+        "poster": "https://media.discordapp.net/attachments/1270916420879777833/1276321771741642762/image.png?ex=671c2947&is=671ad7c7&hm=b54c7d0d4f8692bde91110066422043cf5bd702790d3029dceb32eb00d50e36b&=&format=webp&quality=lossless&width=397&height=559",
+        "description": "Un thriller palpitant dans une ville gangrenée par la corruption.",
+        "type": "film",
+        "jsonFile": "Néfary La Chute/film1.json"
+    },
+    {
+        "id": 8,
+        "title": "Communale",
+        "poster": "https://media.discordapp.net/attachments/1282723359183863818/1298376819661078660/Communale.png?ex=671bfa24&is=671aa8a4&hm=96babc6c97d1ed1b9528bdfa1025ee5fc0e46481990f1c52e49fa9ad57ef7d06&=&format=webp&quality=lossless&width=395&height=559",
+        "description": "Le retour d'un agent de police avec une vengeance implacable.",
+        "type": "film",
+        "jsonFile": "film2.json"
+    },
+    {
+        "id": 9,
+        "title": "Werewolf",
+        "poster": "https://media.discordapp.net/attachments/1270916420879777833/1270927304075251725/Werewolf_Affiche.png?ex=671ba709&is=671a5589&hm=98e7c8e163c15aecdd2ebfeac2788bd561b47fbcfb0c0a7509c94586a7164dcc&=&format=webp&quality=lossless&width=395&height=559",
+        "description": "Un thriller palpitant dans une ville gangrenée par la corruption.",
+        "type": "film",
+        "jsonFile": "Néfary La Chute/film1.json"
+    },
+    {
+        "id": 10,
+        "title": "Agent 17",
+        "poster": "https://media.discordapp.net/attachments/1270916420879777833/1276322965868380230/image.png?ex=671c2a63&is=671ad8e3&hm=55829976734283b1e2672501270f8fb91bd6d47bd492c4ede78f1821d5122727&=&format=webp&quality=lossless&width=392&height=559",
+        "description": "Le retour d'un agent de police avec une vengeance implacable.",
+        "type": "film",
+        "jsonFile": "film2.json"
+    },
+    {
+        "id": 11,
+        "title": "Hellfire: The Seven Years War",
+        "poster": "https://media.discordapp.net/attachments/1270916420879777833/1270927285674840064/Hellfire_The_Seven_Years_War.png?ex=671ba705&is=671a5585&hm=0502d5ae3724d9f5e34995ab51405bec399d149e5c44b333b0610b013eac0eb2&=&format=webp&quality=lossless&width=247&height=350",
+        "description": "Un thriller palpitant dans une ville gangrenée par la corruption.",
+        "type": "film",
+        "jsonFile": "Néfary La Chute/film1.json"
+    },
+    {
+        "id": 12,
+        "title": "Another",
+        "poster": "https://media.discordapp.net/attachments/1270916420879777833/1270927793462575165/Titan.png?ex=671ba77e&is=671a55fe&hm=9f8360802c3080f2aa613ead7ba8c3fa0db23529a331da6b4d3a3cd1ce7b4725&=&format=webp&quality=lossless&width=247&height=350",
+        "description": "Le retour d'un agent de police avec une vengeance implacable.",
+        "type": "film",
+        "jsonFile": "film2.json"
+    }
+]

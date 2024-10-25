@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YEMA VISION</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #141414;
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: #141414;
+}
+
+header h1 {
+    color: #E50914;
+    font-size: 36px;
+}
+
+#searchBar {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #222;
+    color: #fff;
+}
+
+#searchBar::placeholder {
+    color: #aaa;
+}
+
+.category-section {
+    margin: 20px;
+}
+
+.category-title {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.films-grid {
+    display: flex; /* Utiliser flexbox pour le défilement horizontal */
+    overflow-x: auto; /* Activer le défilement horizontal */
+    padding: 10px 0; /* Ajouter un peu d'espace autour */
+    gap: 20px; /* Espacement entre les films */
+    scroll-snap-type: x mandatory; /* Pour un défilement fluide */
+    scroll-behavior: smooth; /* Ajoute un effet de défilement fluide */
+    scrollbar-width: thin; /* Pour Firefox */
+}
+
+/* Pour WebKit (Chrome, Safari) */
+.films-grid::-webkit-scrollbar {
+    width: 8px; /* Largeur de la barre de défilement */
+}
+
+.films-grid::-webkit-scrollbar-track {
+    background: #333; /* Couleur de fond de la piste */
+    border-radius: 10px; /* Coins arrondis */
+}
+
+.films-grid::-webkit-scrollbar-thumb {
+    background: #E50914; /* Couleur de la barre de défilement */
+    border-radius: 10px; /* Coins arrondis */
+}
+
+/* Effet au survol de la barre de défilement */
+.films-grid::-webkit-scrollbar-thumb:hover {
+    background: #ff4d4d; /* Couleur au survol */
+}
+
+/* Pour Firefox */
+.films-grid {
+    scrollbar-width: thin; /* Rendre la barre de défilement plus fine */
+    scrollbar-color: #E50914 #333; /* Couleur de la barre et de la piste */
+}
+
+.film-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    transition: transform 0.3s;
+    scroll-snap-align: start; /* Alignement des éléments au défilement */
+    min-width: 200px; /* Largeur minimale pour chaque film */
+    max-width: 250px; /* Largeur maximale pour chaque film */
+    background-color: #22222200; /* Fond pour chaque film */
+}
+
+.film-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.film-item:hover img {
+    transform: scale(1.1);
+    filter: brightness(0.5); /* Assombrir l'image */
+}
+
+.film-item h2 {
+    font-size: 18px;
+    margin: 10px 0 5px;
+    color: #fff;
+}
+
+.film-item p {
+    font-size: 14px;
+    color: #ccc;
+}
+
+.play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.film-item:hover .play-icon {
+    opacity: 1; /* Afficher l'icône au survol */
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.modal-content {
+    background-color: #222;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    color: #fff;
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.episode-list {
+    list-style: none;
+    padding: 0;
+}
+
+.episode-item {
+    cursor: pointer;
+    padding: 10px;
+    border-bottom: 1px solid #444;
+}
+
+.episode-item:hover {
+    background-color: #555;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>YEMA VISION</h1>
+        <input type="text" id="searchBar" placeholder="Recherche un film...">
+    </header>
+
+    <div class="category-section">
+        <h2 class="category-title">Films</h2>
+        <div id="films-container" class="films-grid"></div>
+    </div>
+
+    <div class="category-section">
+        <h2 class="category-title">Séries</h2>
+        <div id="series-container" class="films-grid"></div>
+    </div>
+
+    <script>
+        // Fetch the films data from the JSON file
+        fetch('films.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(films => {
+                const filmContainer = document.getElementById('films-container');
+                const seriesContainer = document.getElementById('series-container');
+                const searchBar = document.getElementById('searchBar');
+
+                // Function to display films and series
+                const displayContent = (filmsToDisplay, container, type) => {
+                    container.innerHTML = ''; // Clear previous content
+                    filmsToDisplay.forEach(film => {
+                        if (film.type === type) {
+                            const filmDiv = document.createElement('div');
+                            filmDiv.className = 'film-item';
+                            filmDiv.innerHTML = `
+                                <img class="poster" src="${film.poster}" alt="${film.title}">
+                                <h2>${film.title}</h2>
+                                <p>${film.description}</p>
+                                <i class="bi bi-play-circle-fill play-icon"></i>
+                            `;
+                            filmDiv.querySelector('.poster').addEventListener('click', () => {
+                                window.location.href = `film.html?jsonFile=${film.jsonFile}`;
+                            });
+                            container.appendChild(filmDiv);
+                        }
+                    });
+                };
+
+                // Display films and series initially
+                displayContent(films, filmContainer, 'film');
+                displayContent(films, seriesContainer, 'series');
+
+                // Add event listener to filter films and series based on search input
+                searchBar.addEventListener('input', (e) => {
+                    const searchString = e.target.value.toLowerCase();
+                    const filteredFilms = films.filter(film => 
+                        film.title.toLowerCase().includes(searchString) || 
+                        film.description.toLowerCase().includes(searchString)
+                    );
+                    displayContent(filteredFilms, filmContainer, 'film');
+                    displayContent(filteredFilms, seriesContainer, 'series');
+                });
+            })
+            .catch(error => {
+                console.error("Error loading films:", error);
+            });
+    </script>
+</body>
+</html>
