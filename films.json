@@ -75,7 +75,7 @@
         "poster": "https://media.discordapp.net/attachments/1270916420879777833/1276321771741642762/image.png?ex=671c2947&is=671ad7c7&hm=b54c7d0d4f8692bde91110066422043cf5bd702790d3029dceb32eb00d50e36b&=&format=webp&quality=lossless&width=397&height=559",
         "description": "Un thriller palpitant dans une ville gangrenée par la corruption.",
         "type": "film",
-        "jsonFile": "Néfary La Chute/film1.json"
+        "jsonFile": "Néfary La Chute/BatmanVPunisher.json"
     },
     {
         "id": 8,
@@ -83,7 +83,7 @@
         "poster": "https://media.discordapp.net/attachments/1282723359183863818/1298376819661078660/Communale.png?ex=671bfa24&is=671aa8a4&hm=96babc6c97d1ed1b9528bdfa1025ee5fc0e46481990f1c52e49fa9ad57ef7d06&=&format=webp&quality=lossless&width=395&height=559",
         "description": "Le retour d'un agent de police avec une vengeance implacable.",
         "type": "film",
-        "jsonFile": "film2.json"
+        "jsonFile": "Néfary La Chute/Communale.json"
     },
     {
         "id": 9,
